@@ -106,7 +106,7 @@ int main(int argc, char **argv)
     const Eigen::Affine3d &end_effector_state = kinematic_state->getGlobalLinkTransform("wpr1_tip");
 
     printf("\n");
-    ROS_WARN("************************ OUTPUT *****************************");
+    ROS_WARN("***************** OUTPUT **********************");
     ROS_INFO_STREAM("Translation: \n" << end_effector_state.translation());
     ROS_INFO_STREAM("Rotation: \n" << end_effector_state.rotation());
 

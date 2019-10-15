@@ -433,19 +433,19 @@ target_link_libraries(nav_grab_test
   ${catkin_LIBRARIES}
 )
 
-add_executable(wpr1_planning
-  src/wpr1_planning.cpp
+add_executable(wpr1_arm_planning
+  src/wpr1_arm_planning.cpp
 )
-add_dependencies(wpr1_planning ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
-target_link_libraries(wpr1_planning
+add_dependencies(wpr1_arm_planning ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
+target_link_libraries(wpr1_arm_planning
   ${catkin_LIBRARIES}
 )
 
-add_executable(wpr1_plan_execute
-  src/wpr1_plan_execute.cpp
+add_executable(wpr1_arm_plan_execute
+  src/wpr1_arm_plan_execute.cpp
 )
-add_dependencies(wpr1_plan_execute ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
-target_link_libraries(wpr1_plan_execute
+add_dependencies(wpr1_arm_plan_execute ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
+target_link_libraries(wpr1_arm_plan_execute
   ${catkin_LIBRARIES}
 )
 
@@ -473,11 +473,11 @@ target_link_libraries(wpr1_arm_joint_values
   ${catkin_LIBRARIES}
 )
 
-add_executable(wpr1_gripper_client
-  src/wpr1_gripper_client.cpp
+add_executable(wpr1_arm_gripper_client
+  src/wpr1_arm_gripper_client.cpp
 )
-add_dependencies(wpr1_gripper_client ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
-target_link_libraries(wpr1_gripper_client
+add_dependencies(wpr1_arm_gripper_client ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
+target_link_libraries(wpr1_arm_gripper_client
   ${catkin_LIBRARIES}
 )
 

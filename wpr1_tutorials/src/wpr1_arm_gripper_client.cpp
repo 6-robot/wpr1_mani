@@ -42,7 +42,7 @@
 
 int main (int argc, char **argv)
 {
-  ros::init(argc, argv, "wpr1_gripper_client");
+  ros::init(argc, argv, "wpr1_arm_gripper_client");
 
   actionlib::SimpleActionClient<control_msgs::GripperCommandAction> acGripper("wpr1_gripper_controller/gripper_command", true);
 
@@ -54,7 +54,7 @@ int main (int argc, char **argv)
   ROS_INFO("Action server started, sending command.");
   control_msgs::GripperCommandGoal gripperCmd;
   // 手指间距,单位为米(参数0.05表示指令要求手爪闭合到指间距5厘米)
-  gripperCmd.command.position = 0.03;
+  gripperCmd.command.position = 0.05;
   acGripper.sendGoal(gripperCmd);
 
   // 等待指令执行结果,如果超过10秒(见参数10.0)则认为任务失败

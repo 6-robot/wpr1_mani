@@ -86,14 +86,14 @@ int main(int argc, char **argv)
     kinematic_state->setJointGroupPositions(joint_model_group, joint_values);
 
     printf("\n");
-    ROS_WARN("************************ INPUT *****************************");
+    ROS_WARN("***************** INPUT ***********************");
     //先获取正解作为反解的输入量，参数为Moveit界面里的蓝色拖动球的link（ 查看urdf文件可以知道：wpm2_palm 为机械臂蓝色拖动球的link ）
     const Eigen::Affine3d &end_effector_state = kinematic_state->getGlobalLinkTransform("wpm2_palm");
     ROS_INFO_STREAM("Translation: \n" << end_effector_state.translation());
     ROS_INFO_STREAM("Rotation: \n" << end_effector_state.rotation());
 
     printf("\n");
-    ROS_WARN("************************ OUTPUT *****************************");
+    ROS_WARN("***************** OUTPUT **********************");
     //用当前机器人手臂末端(Moveit界面里的蓝色拖动球)的坐标作为反解输入，求反解
     bool found_ik = kinematic_state->setFromIK(joint_model_group, end_effector_state, 10, 0.1);
     if (found_ik)

@@ -44,16 +44,16 @@ static tf::StampedTransform transform;
 
 int main(int argc, char **argv)
 {
-    ros::init(argc, argv, "wpr1_planning");
+    ros::init(argc, argv, "wpr1_arm_planning");
 
     ros::NodeHandle node_handle; 
     ros::AsyncSpinner spinner(1);
     spinner.start();
 
-    printf("[wpr1_planning] 延迟3秒,等待Rviz启动... \n");
+    printf("[wpr1_arm_planning] 延迟3秒,等待Rviz启动... \n");
     sleep(3.0);
 
-    printf("[wpr1_planning] 准备进行轨迹规划... \n");
+    printf("[wpr1_arm_planning] 准备进行轨迹规划... \n");
     moveit::planning_interface::MoveGroupInterface group("arm");
 
     // 设置机械臂末端的目标位置
@@ -81,11 +81,11 @@ int main(int argc, char **argv)
     moveit::planning_interface::MoveItErrorCode success = group.plan(my_plan);
     if(success == moveit_msgs::MoveItErrorCodes::SUCCESS)
     {
-        printf("[wpr1_planning] 轨迹规划成功! \n");
+        printf("[wpr1_arm_planning] 轨迹规划成功! \n");
     }
     else
     {
-        printf("[wpr1_planning] 轨迹规划失败,请检查规划目标的参数 \n");
+        printf("[wpr1_arm_planning] 轨迹规划失败,请检查规划目标的参数 \n");
     }
 
     return 0;

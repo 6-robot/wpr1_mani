@@ -1,0 +1,11 @@
+moveit_setup_assistant_config:
+  URDF:
+    package: wpr1_bringup
+    relative_path: urdf/wpr1_moveit.urdf
+    xacro_args: "--inorder "
+  SRDF:
+    relative_path: config/WPR1.srdf
+  CONFIG:
+    author_name: ZhangWanjie
+    author_email: zhangwanjie@6-robot.com
+    generated_timestamp: 1570930210

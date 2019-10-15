@@ -1,0 +1,19 @@
+<launch>
+  <!--- Run WPR1  -->
+  <include file="$(find wpr1_bringup)/launch/base_mani_imu_lidar.launch" />
+
+  <!--- Run WPR1 Behaviors -->
+  <node pkg="wpr1_behaviors" type="wpr1_grab_server" name="wpr1_grab_server" output="screen"/>
+
+  <!-- Run client -->
+  <node pkg="wpr1_tutorials" type="wpr1_grab_client" name="wpr1_grab_client" output="screen"/>
+
+  <!--- RViz  -->
+  <arg name="model" default="$(find wpr1_bringup)/urdf/wpr1.urdf"/>
+  <arg name="gui" default="true" />
+  <arg name="rvizconfig" default="$(find wpr1_behaviors)/rviz/obj_detect.rviz" />
+  <param name="robot_description" command="$(find xacro)/xacro.py $(arg model)" />
+  <param name="use_gui" value="$(arg gui)"/>
+  <node name="rviz" pkg="rviz" type="rviz" args="-d $(arg rvizconfig)" required="true" />
+
+</launch>

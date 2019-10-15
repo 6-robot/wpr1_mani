@@ -1,0 +1,132 @@
+<?xml version="1.0" ?>
+<!--This does not replace URDF, and is not an extension of URDF.
+    This is a format for representing semantic information about the robot structure.
+    A URDF file must exist for this robot as well, where the joints and the links that are referenced are defined
+-->
+<robot name="WPR1">
+    <!--GROUPS: Representation of a set of joints and links. This can be useful for specifying DOF to plan for, defining arms, end effectors, etc-->
+    <!--LINKS: When a link is specified, the parent joint of that link (if it exists) is automatically included-->
+    <!--JOINTS: When a joint is specified, the child link of that joint (which will always exist) is automatically included-->
+    <!--CHAINS: When a chain is specified, all the links along the chain (including endpoints) are included in the group. Additionally, all the joints that are parents to included links are also included. This means that joints along the chain and the parent joint of the base link are included in the group-->
+    <!--SUBGROUPS: Groups can also be formed by referencing to already defined group names-->
+    <group name="arm">
+        <chain base_link="wpm2_joint_1" tip_link="wpm2_palm" />
+    </group>
+    <group name="gripper">
+        <link name="wpm2_left_finger" />
+        <link name="wpm2_right_finger" />
+        <joint name="wpm2_palm_right_finger" />
+        <joint name="7_gripper" />
+    </group>
+    <!--GROUP STATES: Purpose: Define a named state for a particular group, in terms of joint values. This is useful to define states like 'folded arms'-->
+    <group_state name="zero" group="arm">
+        <joint name="1_shoulder_roll" value="0" />
+        <joint name="2_shoulder_flex" value="0" />
+        <joint name="3_upperarm_roll" value="0" />
+        <joint name="4_elbow_flex" value="0" />
+        <joint name="5_forearm_roll" value="0" />
+        <joint name="6_wrist_flex" value="0" />
+    </group_state>
+    <group_state name="home" group="arm">
+        <joint name="1_shoulder_roll" value="-0.78" />
+        <joint name="2_shoulder_flex" value="-1.5708" />
+        <joint name="3_upperarm_roll" value="0" />
+        <joint name="4_elbow_flex" value="-1.5708" />
+        <joint name="5_forearm_roll" value="-1.5708" />
+        <joint name="6_wrist_flex" value="-1.5708" />
+    </group_state>
+    <group_state name="grab" group="arm">
+        <joint name="1_shoulder_roll" value="0" />
+        <joint name="2_shoulder_flex" value="-1.0471" />
+        <joint name="3_upperarm_roll" value="1.5708" />
+        <joint name="4_elbow_flex" value="-2.0944" />
+        <joint name="5_forearm_roll" value="-1.5708" />
+        <joint name="6_wrist_flex" value="1.0471" />
+    </group_state>
+    <group_state name="hold" group="arm">
+        <joint name="1_shoulder_roll" value="-0.7854" />
+        <joint name="2_shoulder_flex" value="-1.5708" />
+        <joint name="3_upperarm_roll" value="0" />
+        <joint name="4_elbow_flex" value="-1.5708" />
+        <joint name="5_forearm_roll" value="-1.5708" />
+        <joint name="6_wrist_flex" value="-0.7854" />
+    </group_state>
+    <!--END EFFECTOR: Purpose: Represent information about an end effector.-->
+    <end_effector name="gripper" parent_link="wpm2_palm" group="gripper" parent_group="arm" />
+    <!--DISABLE COLLISIONS: By default it is assumed that any link of the robot could potentially come into collision with any other link in the robot. This tag disables collision checking between a specified pair of links. -->
+    <disable_collisions link1="base_footprint" link2="base_link" reason="Adjacent" />
+    <disable_collisions link1="base_footprint" link2="kinect2_dock" reason="Never" />
+    <disable_collisions link1="base_footprint" link2="kinect2_ir_optical_frame" reason="Never" />
+    <disable_collisions link1="base_footprint" link2="kinect2_rgb_optical_frame" reason="Never" />
+    <disable_collisions link1="base_footprint" link2="laser" reason="Default" />
+    <disable_collisions link1="base_footprint" link2="torso_link" reason="Never" />
+    <disable_collisions link1="base_footprint" link2="wpm2_joint_1" reason="Never" />
+    <disable_collisions link1="base_footprint" link2="wpm2_joint_2" reason="Never" />
+    <disable_collisions link1="base_footprint" link2="wpm2_joint_3" reason="Never" />
+    <disable_collisions link1="base_footprint" link2="wpm2_joint_4" reason="Never" />
+    <disable_collisions link1="base_footprint" link2="wpm2_joint_5" reason="Never" />
+    <disable_collisions link1="base_footprint" link2="wpm2_joint_6" reason="Never" />
+    <disable_collisions link1="base_link" link2="kinect2_dock" reason="Default" />
+    <disable_collisions link1="base_link" link2="kinect2_ir_optical_frame" reason="Never" />
+    <disable_collisions link1="base_link" link2="kinect2_rgb_optical_frame" reason="Never" />
+    <disable_collisions link1="base_link" link2="laser" reason="Adjacent" />
+    <disable_collisions link1="base_link" link2="torso_link" reason="Adjacent" />
+    <disable_collisions link1="base_link" link2="wpm2_joint_1" reason="Never" />
+    <disable_collisions link1="base_link" link2="wpm2_joint_2" reason="Never" />
+    <disable_collisions link1="base_link" link2="wpm2_joint_3" reason="Never" />
+    <disable_collisions link1="kinect2_dock" link2="kinect2_ir_optical_frame" reason="Adjacent" />
+    <disable_collisions link1="kinect2_dock" link2="kinect2_rgb_optical_frame" reason="Default" />
+    <disable_collisions link1="kinect2_dock" link2="laser" reason="Never" />
+    <disable_collisions link1="kinect2_dock" link2="torso_link" reason="Adjacent" />
+    <disable_collisions link1="kinect2_dock" link2="wpm2_joint_2" reason="Never" />
+    <disable_collisions link1="kinect2_dock" link2="wpm2_joint_3" reason="Never" />
+    <disable_collisions link1="kinect2_ir_optical_frame" link2="kinect2_rgb_optical_frame" reason="Adjacent" />
+    <disable_collisions link1="kinect2_ir_optical_frame" link2="laser" reason="Never" />
+    <disable_collisions link1="kinect2_ir_optical_frame" link2="torso_link" reason="Never" />
+    <disable_collisions link1="kinect2_ir_optical_frame" link2="wpm2_joint_1" reason="Never" />
+    <disable_collisions link1="kinect2_ir_optical_frame" link2="wpm2_joint_2" reason="Never" />
+    <disable_collisions link1="kinect2_ir_optical_frame" link2="wpm2_joint_3" reason="Never" />
+    <disable_collisions link1="kinect2_ir_optical_frame" link2="wpm2_joint_4" reason="Never" />
+    <disable_collisions link1="kinect2_ir_optical_frame" link2="wpm2_joint_5" reason="Never" />
+    <disable_collisions link1="kinect2_ir_optical_frame" link2="wpm2_joint_6" reason="Never" />
+    <disable_collisions link1="kinect2_ir_optical_frame" link2="wpm2_left_finger" reason="Never" />
+    <disable_collisions link1="kinect2_ir_optical_frame" link2="wpm2_palm" reason="Never" />
+    <disable_collisions link1="kinect2_ir_optical_frame" link2="wpm2_right_finger" reason="Never" />
+    <disable_collisions link1="kinect2_rgb_optical_frame" link2="laser" reason="Never" />
+    <disable_collisions link1="kinect2_rgb_optical_frame" link2="torso_link" reason="Never" />
+    <disable_collisions link1="kinect2_rgb_optical_frame" link2="wpm2_joint_1" reason="Never" />
+    <disable_collisions link1="kinect2_rgb_optical_frame" link2="wpm2_joint_2" reason="Never" />
+    <disable_collisions link1="kinect2_rgb_optical_frame" link2="wpm2_joint_3" reason="Never" />
+    <disable_collisions link1="kinect2_rgb_optical_frame" link2="wpm2_joint_4" reason="Never" />
+    <disable_collisions link1="kinect2_rgb_optical_frame" link2="wpm2_joint_5" reason="Never" />
+    <disable_collisions link1="kinect2_rgb_optical_frame" link2="wpm2_joint_6" reason="Never" />
+    <disable_collisions link1="kinect2_rgb_optical_frame" link2="wpm2_left_finger" reason="Never" />
+    <disable_collisions link1="kinect2_rgb_optical_frame" link2="wpm2_palm" reason="Never" />
+    <disable_collisions link1="kinect2_rgb_optical_frame" link2="wpm2_right_finger" reason="Never" />
+    <disable_collisions link1="laser" link2="torso_link" reason="Never" />
+    <disable_collisions link1="laser" link2="wpm2_joint_1" reason="Never" />
+    <disable_collisions link1="laser" link2="wpm2_joint_2" reason="Never" />
+    <disable_collisions link1="laser" link2="wpm2_joint_3" reason="Never" />
+    <disable_collisions link1="laser" link2="wpm2_joint_4" reason="Never" />
+    <disable_collisions link1="laser" link2="wpm2_joint_5" reason="Never" />
+    <disable_collisions link1="laser" link2="wpm2_joint_6" reason="Never" />
+    <disable_collisions link1="laser" link2="wpm2_left_finger" reason="Never" />
+    <disable_collisions link1="laser" link2="wpm2_palm" reason="Never" />
+    <disable_collisions link1="laser" link2="wpm2_right_finger" reason="Never" />
+    <disable_collisions link1="torso_link" link2="wpm2_joint_1" reason="Adjacent" />
+    <disable_collisions link1="torso_link" link2="wpm2_joint_2" reason="Never" />
+    <disable_collisions link1="torso_link" link2="wpm2_joint_3" reason="Never" />
+    <disable_collisions link1="wpm2_joint_1" link2="wpm2_joint_2" reason="Adjacent" />
+    <disable_collisions link1="wpm2_joint_2" link2="wpm2_joint_3" reason="Adjacent" />
+    <disable_collisions link1="wpm2_joint_2" link2="wpm2_joint_4" reason="Never" />
+    <disable_collisions link1="wpm2_joint_3" link2="wpm2_joint_4" reason="Adjacent" />
+    <disable_collisions link1="wpm2_joint_4" link2="wpm2_joint_5" reason="Adjacent" />
+    <disable_collisions link1="wpm2_joint_4" link2="wpm2_joint_6" reason="Never" />
+    <disable_collisions link1="wpm2_joint_5" link2="wpm2_joint_6" reason="Adjacent" />
+    <disable_collisions link1="wpm2_joint_6" link2="wpm2_left_finger" reason="Never" />
+    <disable_collisions link1="wpm2_joint_6" link2="wpm2_palm" reason="Adjacent" />
+    <disable_collisions link1="wpm2_joint_6" link2="wpm2_right_finger" reason="Never" />
+    <disable_collisions link1="wpm2_left_finger" link2="wpm2_palm" reason="Adjacent" />
+    <disable_collisions link1="wpm2_left_finger" link2="wpm2_right_finger" reason="Never" />
+    <disable_collisions link1="wpm2_palm" link2="wpm2_right_finger" reason="Adjacent" />
+</robot>

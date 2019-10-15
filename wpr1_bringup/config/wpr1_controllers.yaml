@@ -1,0 +1,19 @@
+controller_list:
+  - name: wpr1_controller
+    action_ns: follow_joint_trajectory
+    type: FollowJointTrajectory
+    default: true
+    joints:
+      - 1_shoulder_roll
+      - 2_shoulder_flex
+      - 3_upperarm_roll
+      - 4_elbow_flex
+      - 5_forearm_roll
+      - 6_wrist_flex
+  - name: wpr1_gripper_controller
+    action_ns: gripper_command
+    type: GripperCommand
+    default: true
+    joints:
+      - 6_wrist_flex
+      - 7_gripper

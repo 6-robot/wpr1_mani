@@ -1,0 +1,12 @@
+controller_list:
+  - name: fake_arm_controller
+    joints:
+      - 1_shoulder_roll
+      - 2_shoulder_flex
+      - 3_upperarm_roll
+      - 4_elbow_flex
+      - 5_forearm_roll
+      - 6_wrist_flex
+  - name: fake_gripper_controller
+    joints:
+      - 7_gripper

@@ -1,0 +1,85 @@
+<launch>
+
+    <!--- Run WPR1 Behaviors Servers -->
+    <include file="$(find wpr1_behaviors)/launch/all_app.launch" />
+
+    <!-- Run the map server -->
+    <node name="map_server" pkg="map_server" type="map_server" args="$(find wpr1_tutorials)/maps/map.yaml"/>
+
+    <!--- Run AMCL -->
+    <include file="$(find wpr1_tutorials)/nav_lidar/amcl_omni.launch" />
+
+    <!--- Run move base -->
+    <node pkg="move_base" type="move_base" respawn="false" name="move_base"  output="screen">
+        <rosparam file="$(find wpr1_tutorials)/nav_lidar/costmap_common_params.yaml" command="load" ns="global_costmap" />
+        <rosparam file="$(find wpr1_tutorials)/nav_lidar/costmap_common_params.yaml" command="load" ns="local_costmap" />
+        <rosparam file="$(find wpr1_tutorials)/nav_lidar/local_costmap_params.yaml" command="load" />
+        <rosparam file="$(find wpr1_tutorials)/nav_lidar/global_costmap_params.yaml" command="load" />
+        <param name="base_global_planner" value="global_planner/GlobalPlanner" /> 
+        <param name="use_dijkstra" value="true"/>
+        <param name="base_local_planner" value="wpr1_local_planner/Wpr1LocalPlanner" />
+        <param name= "controller_frequency" value="30" type="double"/>
+    </node>
+
+    <!-- RViz -->
+    <arg name="model" default="$(find wpr1_bringup)/urdf/wpr1_moveit.urdf"/>
+    <arg name="gui" default="true" />
+    <param name="use_gui" value="$(arg gui)"/>
+    <arg name="rvizconfig" default="$(find wpr1_tutorials)/rviz/10_home.rviz" />
+    <node name="rviz" pkg="rviz" type="rviz" args="-d $(arg rvizconfig)" required="true" />
+
+    <!-- Map tools  -->
+    <node pkg="waterplus_map_tools" type="wp_manager" name="wp_manager" output="screen">
+        <param name="load" type="string" value="/home/master/waypoints.xml"/> 
+    </node>
+
+    <!-- Run xfyun TTS -->
+    <node pkg="xfyun_waterplus" type="tts_node" name="xfyun_tts_node" /> 
+    <!-- Run sound_play -->
+    <node name="soundplay_node" pkg="sound_play" type="soundplay_node.py"/>
+
+    <!-- ************************ MoveIt ****************************** -->
+    <!-- By default, we do not start a database (it can be large) -->
+    <arg name="db" default="false" />
+    <!-- Allow user to specify database location -->
+    <arg name="db_path" default="$(find wpr1_moveit_config)/default_warehouse_mongo_db" />
+
+    <!-- By default, we are not in debug mode -->
+    <arg name="debug" default="false" />
+    <param name="move_group/trajectory_execution/allowed_execution_duration_scaling" value="4.0" />
+    <param name="move_group/trajectory_execution/execution_duration_monitoring" value="false" />
+
+    <!--
+    By default, hide joint_state_publisher's GUI
+
+    MoveIt!'s "demo" mode replaces the real robot driver with the joint_state_publisher.
+    The latter one maintains and publishes the current joint configuration of the simulated robot.
+    It also provides a GUI to move the simulated robot around "manually".
+    This corresponds to moving around the real robot without the use of MoveIt.
+    -->
+    <arg name="use_gui" default="false" />
+
+    <!-- Load the URDF, SRDF and other .yaml configuration files on the param server -->
+    <include file="$(find wpr1_moveit_config)/launch/planning_context.launch">
+        <arg name="load_robot_description" value="true"/>
+    </include>
+
+    <!-- If needed, broadcast static tf for robot root -->
+
+    <!-- Run the main MoveIt executable without trajectory execution (we do not have controllers configured by default) -->
+    <include file="$(find wpr1_moveit_config)/launch/move_group.launch">
+        <arg name="allow_trajectory_execution" value="true"/>
+        <arg name="fake_execution" value="false"/>
+        <arg name="info" value="true"/>
+        <arg name="debug" value="$(arg debug)"/>
+    </include>
+
+    <!-- If database loading was enabled, start mongodb as well -->
+    <include file="$(find wpr1_moveit_config)/launch/default_warehouse_db.launch" if="$(arg db)">
+        <arg name="moveit_warehouse_database_path" value="$(arg db_path)"/>
+    </include>
+
+    <!-- Run script -->
+    <node pkg="wpr1_tutorials" type="nav_moveit_demo" name="nav_moveit_demo" output="screen"/>
+
+</launch>

@@ -43,7 +43,7 @@ catkin_make
 
 ## 平台介绍
 启明1_MANI是[北京六部工坊科技有限公司](http://www.6-robot.com)在标准版启明1服务机器人基础上扩增出的六自由度机械臂版本，相对于标准版启明1机器人拥有更大的操作空间，搭载MoveIt!系统，适用于机械臂运动学研究。
-![wpr1 pic](./media/wpr1_mani.jpg)
+![wpr1 pic](./media/wpr1_mani.png)
 
 ## 功能特性
 

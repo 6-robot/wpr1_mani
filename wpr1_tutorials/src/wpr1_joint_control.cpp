@@ -87,44 +87,44 @@ int main(int argc, char** argv)
         switch(nCount)
         {
         case 0: //home
-            ctrl_msg.position[0] = 0.1;
-            ctrl_msg.position[1] = -45;
-            ctrl_msg.position[2] = -90;
-            ctrl_msg.position[3] = 0;
-            ctrl_msg.position[4] = -90;
-            ctrl_msg.position[5] = -90;
-            ctrl_msg.position[6] = -90;
-            ctrl_msg.position[7] = 0.05;
+            ctrl_msg.position[0] = 0.1; //"0_torso_lift"
+            ctrl_msg.position[1] = -45; //"1_shoulder_roll"
+            ctrl_msg.position[2] = -90; //"2_shoulder_flex"
+            ctrl_msg.position[3] = 0;   //"3_upperarm_roll"
+            ctrl_msg.position[4] = -90; //"4_elbow_flex"
+            ctrl_msg.position[5] = -90; //"5_forearm_roll"
+            ctrl_msg.position[6] = -90; //"6_wrist_flex"
+            ctrl_msg.position[7] = 0.05;//"7_gripper"
             break;
         case 1:  //grab
-            ctrl_msg.position[0] = 0;
-            ctrl_msg.position[1] = 0;
-            ctrl_msg.position[2] = -60;
-            ctrl_msg.position[3] = 90;
-            ctrl_msg.position[4] = -120;
-            ctrl_msg.position[5] = -90;
-            ctrl_msg.position[6] = 60;
-            ctrl_msg.position[7] = 0.10;
+            ctrl_msg.position[0] = 0;   //"0_torso_lift"
+            ctrl_msg.position[1] = 0;   //"1_shoulder_roll"
+            ctrl_msg.position[2] = -60; //"2_shoulder_flex"
+            ctrl_msg.position[3] = 90;  //"3_upperarm_roll"
+            ctrl_msg.position[4] = -120;//"4_elbow_flex"
+            ctrl_msg.position[5] = -90; //"5_forearm_roll"
+            ctrl_msg.position[6] = 60;  //"6_wrist_flex"
+            ctrl_msg.position[7] = 0.10;//"7_gripper"
             break;
         case 2: //hold
-            ctrl_msg.position[0] = 0.1;
-            ctrl_msg.position[1] = -45;
-            ctrl_msg.position[2] = -90;
-            ctrl_msg.position[3] = 0;
-            ctrl_msg.position[4] = -90;
-            ctrl_msg.position[5] = -90;
-            ctrl_msg.position[6] = -45;
-            ctrl_msg.position[7] = 0.05;
+            ctrl_msg.position[0] = 0.1; //"0_torso_lift"
+            ctrl_msg.position[1] = -45; //"1_shoulder_roll"
+            ctrl_msg.position[2] = -90; //"2_shoulder_flex"
+            ctrl_msg.position[3] = 0;   //"3_upperarm_roll"
+            ctrl_msg.position[4] = -90; //"4_elbow_flex"
+            ctrl_msg.position[5] = -90; //"5_forearm_roll"
+            ctrl_msg.position[6] = -45; //"6_wrist_flex"
+            ctrl_msg.position[7] = 0.05;//"7_gripper"
             break;
         case 3: //zero
-            ctrl_msg.position[0] = 0;
-            ctrl_msg.position[1] = 0;
-            ctrl_msg.position[2] = 0;
-            ctrl_msg.position[3] = 0;
-            ctrl_msg.position[4] = 0;
-            ctrl_msg.position[5] = 0;
-            ctrl_msg.position[6] = 0;
-            ctrl_msg.position[7] = 0.10;
+            ctrl_msg.position[0] = 0;   //"0_torso_lift"
+            ctrl_msg.position[1] = 0;   //"1_shoulder_roll"
+            ctrl_msg.position[2] = 0;   //"2_shoulder_flex"
+            ctrl_msg.position[3] = 0;   //"3_upperarm_roll"
+            ctrl_msg.position[4] = 0;   //"4_elbow_flex"
+            ctrl_msg.position[5] = 0;   //"5_forearm_roll"
+            ctrl_msg.position[6] = 0;   //"6_wrist_flex"
+            ctrl_msg.position[7] = 0.10;//"7_gripper"
             break;
         }
         joint_ctrl_pub.publish(ctrl_msg);

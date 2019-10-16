@@ -47,6 +47,9 @@
 
 using namespace std;
 
+static int nJointStep = 100;
+static int nLiftStep = 1;
+
 typedef struct
 {
     float position[7];
@@ -75,6 +78,7 @@ static bool bExecToGoal = true;
 
 static int nRecvJointPos[8];
 static int nTargetJointPos[8];
+int CalGripperPos(float inGapSize);
 
 typedef actionlib::SimpleActionServer<control_msgs::FollowJointTrajectoryAction> TrajectoryServer;
 typedef actionlib::SimpleActionServer<control_msgs::GripperCommandAction> GripperServer;
@@ -110,8 +114,8 @@ void JointCtrlDegreeCallback(const sensor_msgs::JointState::ConstPtr& msg)
     {
         fJointAngle[i] = msg->position[i];
         nJointSpeed[i] = msg->velocity[i];
-        //nRecvJointPos[i] = fJointAngle[i] * 100;  //测试用，将下发值赋值到反馈值
     }
+    fJointAngle[7] = CalGripperPos(msg->position[7]);
 
     Set8Joints(fJointAngle, nJointSpeed);
 }
@@ -138,7 +142,7 @@ void JointCtrlAngleCallback(const sensor_msgs::JointState::ConstPtr& msg)
         nJointSpeed[i] = msg->velocity[i];
     }
     //手爪
-    fJointAngle[7] = msg->position[7];
+    fJointAngle[7] = CalGripperPos(msg->position[7]);
     nJointSpeed[7] = msg->velocity[7];
 
     Set8Joints(fJointAngle, nJointSpeed);
@@ -338,6 +342,7 @@ void InitGripperPosVal()
         arGripperPos[i].fPosePerMM = fDiffSize/nDiffPos;
         //ROS_WARN("i=%d fPosePerMM =%f",i,arGripperPos[i].fPosePerMM);
     }
+    arGripperPos[0].fPosePerMM = arGripperPos[1].fPosePerMM;
 }
 
 // 手爪位置计算
@@ -348,25 +353,17 @@ int CalGripperPos(float inGapSize)
     if(nNumGP > 0)
     {
         int nIndexGP = 0;
-        if(inGapSize >= arGripperPos[nIndexGP].fGapSize)
+        for(int i=0;i<nNumGP;i++)
         {
-            nRetGripperPos = arGripperPos[nIndexGP].nGripperPos;
-            return nRetGripperPos;
-        }
-        for(int i=1;i<nNumGP;i++)
-        {
-            if(inGapSize > arGripperPos[i].fGapSize)
+            if(inGapSize >= arGripperPos[i].fGapSize)
             {
                 nIndexGP = i;
                 break;
             }
         }
-        if(nIndexGP < nNumGP)
-        {
-            double fDiffGapSize = fabs(inGapSize - arGripperPos[nIndexGP].fGapSize);
-            int nDiffGripperPos = (fDiffGapSize/arGripperPos[nIndexGP].fPosePerMM);
-            nRetGripperPos = arGripperPos[nIndexGP].nGripperPos + nDiffGripperPos;
-        }
+        double fDiffGapSize = fabs(inGapSize - arGripperPos[nIndexGP].fGapSize);
+        int nDiffGripperPos = (fDiffGapSize/arGripperPos[nIndexGP].fPosePerMM);
+        nRetGripperPos = arGripperPos[nIndexGP].nGripperPos + nDiffGripperPos;
     }
     return nRetGripperPos;
 }
@@ -469,9 +466,13 @@ int main(int argc, char** argv)
     while(n.ok())
     {
         //模拟渐变
-        int nStep = 100;
+        int nStep = nJointStep;
         for(int i=0;i<8;i++)
         {
+            if(i == 0)
+            {
+                nStep = nLiftStep;
+            }
             if(nRecvJointPos[i] != nTargetJointPos[i])
             {
                 if(nRecvJointPos[i] > nTargetJointPos[i])

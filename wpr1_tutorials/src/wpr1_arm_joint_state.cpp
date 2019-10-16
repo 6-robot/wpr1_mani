@@ -38,62 +38,38 @@
 #include <ros/ros.h>
 #include <sensor_msgs/JointState.h>
 
-int main(int argc, char** argv)
+void JointStateCallback(const sensor_msgs::JointState::ConstPtr& msg)
 {
-    ros::init(argc, argv, "wpr1_manipulator_home");
+    ROS_WARN("************************");
+    //显示关节的信息
+    int nJointNum = msg->name.size();
+    for(int i=0;i<nJointNum;i++)
+    {
+        if(i >=1 && i <= 6)
+        {
+            // 将手臂旋转关节换算成角度值，便于读数观察
+            double degree = msg->position[i]*180/3.14;
+            ROS_INFO("Joint[%d] name=%s  position=%.2f ", i , msg->name[i].c_str() , degree);
+        }
+        else
+        {
+            // 非手臂关节继续保持原数值
+            double value = msg->position[i];
+            ROS_INFO("Joint[%d] name=%s  position=%.2f ", i , msg->name[i].c_str() , value);
+        }
+    }
+}
 
-    ros::NodeHandle n;
-    ros::Publisher joint_ctrl_pub = n.advertise<sensor_msgs::JointState>("wpr1/joint_ctrl_degree", 30);
+int main(int argc, char **argv)
+{
+    ros::init(argc, argv, "wpr1_arm_joint_state");
+    ROS_WARN("wpr1_arm_joint_state start!");
+    ros::NodeHandle nh;
 
-    sensor_msgs::JointState ctrl_msg;
-    ctrl_msg.name.resize(8);
-    ctrl_msg.position.resize(8);
-    ctrl_msg.velocity.resize(8);
-    ctrl_msg.name[0] = "0_torso_lift";
-    ctrl_msg.name[1] = "1_shoulder_roll";
-    ctrl_msg.name[2] = "2_shoulder_flex";
-    ctrl_msg.name[3] = "3_upperarm_roll";
-    ctrl_msg.name[4] = "4_elbow_flex";
-    ctrl_msg.name[5] = "5_forearm_roll";
-    ctrl_msg.name[6] = "6_wrist_flex";
-    ctrl_msg.name[7] = "7_gripper";
+    // 订阅机器人实体信息主题
+    ros::Subscriber joint_state_sub = nh.subscribe("/joint_states",30,&JointStateCallback);
 
-    ctrl_msg.position[0] = 0;
-    ctrl_msg.position[1] = -45;
-    ctrl_msg.position[2] = -90;
-    ctrl_msg.position[3] = 0;
-    ctrl_msg.position[4] = -90;
-    ctrl_msg.position[5] = -90;
-    ctrl_msg.position[6] = -90;
-    ctrl_msg.position[7] = 0.1;
-
-    ctrl_msg.velocity[0] = 1000;
-    ctrl_msg.velocity[1] = 1000;
-    ctrl_msg.velocity[2] = 1000;
-    ctrl_msg.velocity[3] = 1000;
-    ctrl_msg.velocity[4] = 1000;
-    ctrl_msg.velocity[5] = 1000;
-    ctrl_msg.velocity[6] = 1000;
-    ctrl_msg.velocity[7] = 1000;
-
-    int nCount = 0;
-    ros::Rate r(1);
-    ros::spinOnce();
-    r.sleep();
-    
-    ROS_WARN("[wpr1_mani_home] Manipulator rest to HOME!");
-    //折叠
-    ctrl_msg.position[0] = 0;
-    ctrl_msg.position[1] = -45;
-    ctrl_msg.position[2] = -90;
-    ctrl_msg.position[3] = 0;
-    ctrl_msg.position[4] = -90;
-    ctrl_msg.position[5] = -90;
-    ctrl_msg.position[6] = -90;
-    ctrl_msg.position[7] = 0.05;
-    joint_ctrl_pub.publish(ctrl_msg);
-    ros::spinOnce();
-    r.sleep();
+    ros::spin();
 
     return 0;
 }

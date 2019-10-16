@@ -449,6 +449,14 @@ target_link_libraries(wpr1_arm_plan_execute
   ${catkin_LIBRARIES}
 )
 
+add_executable(wpr1_arm_joint_state
+  src/wpr1_arm_joint_state.cpp
+)
+add_dependencies(wpr1_arm_joint_state ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
+target_link_libraries(wpr1_arm_joint_state
+  ${catkin_LIBRARIES}
+)
+
 add_executable(wpr1_arm_kinematics
   src/wpr1_arm_kinematics.cpp
 )

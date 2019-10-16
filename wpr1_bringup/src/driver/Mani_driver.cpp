@@ -285,6 +285,7 @@ void CMani_driver::Set8Joints(double* inPosition, int* inSpeed)
 	///////////////
 	m_Split4Bytes(&m_SendBuf[5 + 7 * 8], inSpeed[7]);
 	m_Split4Bytes(&m_SendBuf[9 + 7 * 8], arPosition[7]);
+	//printf("arPosition[7] = %d\n",arPosition[7]);
 
 	m_CalSum();
 

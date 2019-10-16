@@ -108,7 +108,7 @@ int main(int argc, char** argv)
     mani_ctrl_msg.position[4] = -90;
     mani_ctrl_msg.position[5] = -90;
     mani_ctrl_msg.position[6] = -90;
-    mani_ctrl_msg.position[7] = 25000;
+    mani_ctrl_msg.position[7] = 0.5;
     mani_ctrl_msg.velocity[0] = 1500;
     mani_ctrl_msg.velocity[1] = 1500;
     mani_ctrl_msg.velocity[2] = 1500;
@@ -140,7 +140,7 @@ int main(int argc, char** argv)
             mani_ctrl_msg.position[4] = -120;
             mani_ctrl_msg.position[5] = -90;
             mani_ctrl_msg.position[6] = 60;
-            mani_ctrl_msg.position[7] = 7000;
+            mani_ctrl_msg.position[7] = 0.5;
             joint_ctrl_pub.publish(mani_ctrl_msg);
             nDelayCount ++;
             if(nDelayCount > 80)
@@ -153,7 +153,7 @@ int main(int argc, char** argv)
             }
             break;
         case STEP_GRIPPER:
-            mani_ctrl_msg.position[7] = 47000;
+            mani_ctrl_msg.position[7] = 1.2;
             joint_ctrl_pub.publish(mani_ctrl_msg);
             nDelayCount ++;
             if(nDelayCount > 50)
@@ -173,7 +173,7 @@ int main(int argc, char** argv)
             mani_ctrl_msg.position[4] = -90;
             mani_ctrl_msg.position[5] = -90;
             mani_ctrl_msg.position[6] = -90;
-            mani_ctrl_msg.position[7] = 10000;
+            mani_ctrl_msg.position[7] = 0.5;
             joint_ctrl_pub.publish(mani_ctrl_msg);
             nDelayCount ++;
             if(nDelayCount > 80)

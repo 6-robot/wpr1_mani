@@ -203,7 +203,7 @@ int main(int argc, char** argv)
     mani_ctrl_msg.position[4] = -90;
     mani_ctrl_msg.position[5] = -90;
     mani_ctrl_msg.position[6] = -90;
-    mani_ctrl_msg.position[7] = 25000;
+    mani_ctrl_msg.position[7] = 0.5;
     mani_ctrl_msg.velocity[0] = 1500;
     mani_ctrl_msg.velocity[1] = 1500;
     mani_ctrl_msg.velocity[2] = 1500;

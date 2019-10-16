@@ -65,7 +65,7 @@ int main(int argc, char** argv)
     ctrl_msg.position[4] = -90;
     ctrl_msg.position[5] = -90;
     ctrl_msg.position[6] = -90;
-    ctrl_msg.position[7] = 7000;
+    ctrl_msg.position[7] = 0.5;
 
     ctrl_msg.velocity[0] = 1500;
     ctrl_msg.velocity[1] = 1500;
@@ -94,7 +94,7 @@ int main(int argc, char** argv)
             ctrl_msg.position[4] = -90;
             ctrl_msg.position[5] = -90;
             ctrl_msg.position[6] = -90;
-            ctrl_msg.position[7] = 27000;
+            ctrl_msg.position[7] = 0.05;
             break;
         case 1:  //grab
             ctrl_msg.position[0] = 0;
@@ -104,7 +104,7 @@ int main(int argc, char** argv)
             ctrl_msg.position[4] = -120;
             ctrl_msg.position[5] = -90;
             ctrl_msg.position[6] = 60;
-            ctrl_msg.position[7] = 47000;
+            ctrl_msg.position[7] = 0.10;
             break;
         case 2: //hold
             ctrl_msg.position[0] = 0.1;
@@ -114,7 +114,7 @@ int main(int argc, char** argv)
             ctrl_msg.position[4] = -90;
             ctrl_msg.position[5] = -90;
             ctrl_msg.position[6] = -45;
-            ctrl_msg.position[7] = 27000;
+            ctrl_msg.position[7] = 0.05;
             break;
         case 3: //zero
             ctrl_msg.position[0] = 0;
@@ -124,7 +124,7 @@ int main(int argc, char** argv)
             ctrl_msg.position[4] = 0;
             ctrl_msg.position[5] = 0;
             ctrl_msg.position[6] = 0;
-            ctrl_msg.position[7] = 47000;
+            ctrl_msg.position[7] = 0.10;
             break;
         }
         joint_ctrl_pub.publish(ctrl_msg);

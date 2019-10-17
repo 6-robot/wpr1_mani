@@ -15,12 +15,6 @@
     <color rgba = "0.0 0.0 0.9 1"/>
   </material>
 
-<link name="dummy">
-   </link>
-  <joint name="dummy_joint" type="fixed">
-     <parent link="dummy"/>
-     <child link="base_footprint"/>
-   </joint>
 
 <link name="base_footprint">
     <visual>
@@ -91,7 +85,7 @@
     <joint name = "base_joint1" type = "fixed">
         <parent link = "torso_link"/>
         <child link = "wpm2_joint_1"/>
-        <origin xyz="0.185 0.00 0.515" rpy="0 1.57 0" /> <!--x:dist of root to torso y:left z:up-->
+        <origin xyz="0.185 0.05 0.515" rpy="0 1.57 0" /> <!--x:dist of root to torso y:left z:up-->
     </joint>
 
     <!-- mani_part_2 -->

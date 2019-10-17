@@ -102,7 +102,7 @@ void JointCtrlDegreeCallback(const sensor_msgs::JointState::ConstPtr& msg)
         nJointSpeed[i] = msg->velocity[i];
     }
     fJointAngle[7] = CalGripperPos(msg->position[7]);
-    ROS_WARN("gripper value = %.2f pos = %.0f",msg->position[7],fJointAngle[7]);
+    //ROS_WARN("gripper value = %.2f pos = %.0f",msg->position[7],fJointAngle[7]);
 
     m_mani.Set8Joints(fJointAngle, nJointSpeed);
 }
@@ -251,7 +251,7 @@ void executeTrajectory(const control_msgs::FollowJointTrajectoryGoalConstPtr& go
                 }
             }
             // 计算运动速度
-            int nMaxVelocity = 4000;
+            int nMaxVelocity = 2000;
             if(fDiffMax > 0)
             {
                 for(int i=0;i<6;i++)

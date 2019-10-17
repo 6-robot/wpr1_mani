@@ -150,6 +150,10 @@ Visualization Manager:
             Show Axes: false
             Show Trail: false
             Value: true
+          wpr1_tip:
+            Alpha: 1
+            Show Axes: false
+            Show Trail: false
         Loop Animation: true
         Robot Alpha: 0.5
         Robot Color: 150; 50; 150
@@ -275,6 +279,10 @@ Visualization Manager:
             Show Axes: false
             Show Trail: false
             Value: true
+          wpr1_tip:
+            Alpha: 1
+            Show Axes: false
+            Show Trail: false
         Robot Alpha: 0.699999988
         Show Robot Collision: false
         Show Robot Visual: true
@@ -296,25 +304,25 @@ Visualization Manager:
   Views:
     Current:
       Class: rviz/XYOrbit
-      Distance: 2.45245123
+      Distance: 2.41713595
       Enable Stereo Rendering:
         Stereo Eye Separation: 0.0599999987
         Stereo Focal Distance: 1
         Swap Stereo Eyes: false
         Value: false
       Focal Point:
-        X: -0.0764319897
-        Y: -0.48459208
+        X: 0.121682346
+        Y: -0.436746776
         Z: 5.81145855e-07
       Focal Shape Fixed Size: true
       Focal Shape Size: 0.0500000007
       Invert Z Axis: false
       Name: Current View
       Near Clip Distance: 0.00999999978
-      Pitch: 0.294796973
+      Pitch: 0.414796889
       Target Frame: base_footprint
       Value: XYOrbit (rviz)
-      Yaw: 0.656766415
+      Yaw: 0.87176609
     Saved: ~
 Window Geometry:
   Displays:

@@ -124,7 +124,7 @@ int main(int argc, char** argv)
         joint_state_pub.publish(msg);
       
         // 测试控制
-        if(nCount > 300)
+        if(nCount > 500)
         {
             nCount = 0;
             if(nFlag == 0)

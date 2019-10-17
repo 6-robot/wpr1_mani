@@ -67,7 +67,7 @@ int main(int argc, char** argv)
     ctrl_msg.position[6] = -90;
     ctrl_msg.position[7] = 0.5;
 
-    ctrl_msg.velocity[0] = 1500;
+    ctrl_msg.velocity[0] = 1000;
     ctrl_msg.velocity[1] = 1500;
     ctrl_msg.velocity[2] = 1500;
     ctrl_msg.velocity[3] = 1500;

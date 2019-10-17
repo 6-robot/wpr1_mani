@@ -47,7 +47,7 @@
 
 using namespace std;
 
-static int nJointStep = 100;
+static int nJointStep = 50;
 static int nLiftStep = 1;
 
 typedef struct
@@ -473,8 +473,13 @@ int main(int argc, char** argv)
             {
                 nStep = nLiftStep;
             }
+            else
+            {
+                nStep = nJointStep;
+            }
             if(nRecvJointPos[i] != nTargetJointPos[i])
             {
+                //ROS_WARN("[%d] nRecvJointPos = %d nTargetJointPos= %d",i,nRecvJointPos[i] , nTargetJointPos[i]);
                 if(nRecvJointPos[i] > nTargetJointPos[i])
                 {
                     int nDiff = nRecvJointPos[i] - nTargetJointPos[i];

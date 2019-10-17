@@ -592,7 +592,7 @@ void ProcCloudCB(const sensor_msgs::PointCloud2 &input)
             mani_ctrl_msg.position[4] = -120;
             mani_ctrl_msg.position[5] = -90;
             mani_ctrl_msg.position[6] = 60;
-            mani_ctrl_msg.position[7] = 1.5;
+            mani_ctrl_msg.position[7] = 0.15;
             joint_ctrl_pub.publish(mani_ctrl_msg);
             ROS_WARN("[7_HAND_UP] gripper = %.2f " ,mani_ctrl_msg.position[7]);
 
@@ -614,7 +614,7 @@ void ProcCloudCB(const sensor_msgs::PointCloud2 &input)
     {
         if(nTimeDelayCounter == 0)
         {
-            mani_ctrl_msg.position[7] = 0.5;
+            mani_ctrl_msg.position[7] = 0.05;
             joint_ctrl_pub.publish(mani_ctrl_msg);
             ROS_WARN("[9_STEP_GRAB] gripper = %.2f " ,mani_ctrl_msg.position[7]);
 
@@ -794,7 +794,7 @@ void BehaviorCB(const std_msgs::String::ConstPtr &msg)
         mani_ctrl_msg.position[4] = -90;
         mani_ctrl_msg.position[5] = -90;
         mani_ctrl_msg.position[6] = -90;
-        mani_ctrl_msg.position[7] = 0.5;
+        mani_ctrl_msg.position[7] = 0.05;
         joint_ctrl_pub.publish(mani_ctrl_msg);
         VelCmd(0,0,0);
         nStep = STEP_FIND_PLANE;
@@ -862,7 +862,7 @@ int main(int argc, char **argv)
     mani_ctrl_msg.position[4] = -90;
     mani_ctrl_msg.position[5] = -90;
     mani_ctrl_msg.position[6] = -90;
-    mani_ctrl_msg.position[7] = 0.5;
+    mani_ctrl_msg.position[7] = 0.05;
     mani_ctrl_msg.velocity[0] = 1500;
     mani_ctrl_msg.velocity[1] = 1500;
     mani_ctrl_msg.velocity[2] = 1500;

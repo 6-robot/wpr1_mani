@@ -60,15 +60,15 @@
         <mesh filename="package://wpr1_bringup/meshes/torso.STL" scale="1 1 1"/>
       </geometry>
       <material name = "blue"/>
-      <origin rpy = "1.57 0 0" xyz = "-0.018 0.975 0"/>
+      <origin rpy = "1.57 1.57 0" xyz = "-0.033 0.975 0.018"/>
     </visual>
   </link>
   <joint name = "0_torso_lift" type="prismatic">
     <parent link = "base_link"/>
     <child link = "torso_link"/>
-    <axis xyz="0 0 1"/>
+    <axis xyz="1 0 0"/>
     <limit effort="1000.0" lower="0" upper="0.4" velocity="0.5"/>
-    <origin rpy="0 0 0" xyz="-0.255 0 0.287"/> <!--pos-->
+    <origin rpy="0 -1.57 0" xyz="-0.255 0 0.287"/> <!--pos-->
   </joint>
 
    <!-- ****manipulator ****-->
@@ -79,13 +79,13 @@
                 <cylinder length="0.16" radius="0.08"/>
             </geometry>
             <material name = "grey"/>
-            <origin rpy = "0 0 0" xyz = "0 0 0.08"/><!-- -->
+            <origin rpy = "0 1.57 0" xyz = "0.08 0 0"/><!-- -->
         </visual>
     </link>
     <joint name = "base_joint1" type = "fixed">
         <parent link = "torso_link"/>
         <child link = "wpm2_joint_1"/>
-        <origin xyz="0.185 0.00 0.515" rpy="0 1.57 0" /> <!--x:dist of root to torso y:left z:up-->
+        <origin xyz="0.515 0.00 -0.185" rpy="0 1.57 0" /> <!--x:dist of root to torso y:left z:up-->
     </joint>
 
     <!-- mani_part_2 -->
@@ -95,14 +95,14 @@
                 <mesh filename="package://wpr1_bringup/meshes/wpm2_joint_2.stl" scale="1 1 1"/>
             </geometry>
             <material name = "light_grey"/>
-            <origin rpy = "-1.57 0 1.57" xyz = "0.135 -0.07 0.1285"/>
+            <origin rpy = "0 0 1.57" xyz = "0.1285 -0.07 -0.135"/>
         </visual>
     </link>
     <joint name = "1_shoulder_roll" type = "revolute">
         <parent link = "wpm2_joint_1"/>
         <child link = "wpm2_joint_2"/>
-        <axis xyz = "0 0 1"/>
-        <origin xyz = "0 0 0.1585"/>
+        <axis xyz = "1 0 0"/>
+        <origin xyz = "0.1585 0 0"/>
         <limit effort = "1000.0" lower="-3.14" upper="3.14" velocity="0.5"/>
     </joint>
 
@@ -113,14 +113,14 @@
                 <mesh filename="package://wpr1_bringup/meshes/wpm2_joint_3.stl" scale="1 1 1"/>
             </geometry>
             <material name = "grey"/>
-            <origin rpy = "1.57 0 1.57" xyz = "-0.12 -0.08 -0.048"/>
+            <origin rpy = "3.14 0 1.57" xyz = "-0.048 -0.08 0.12"/>
         </visual>
     </link>
     <joint name = "2_shoulder_flex" type = "revolute">
         <parent link = "wpm2_joint_2"/>
         <child link = "wpm2_joint_3"/>
         <axis xyz = "0 -1 0"/>
-        <origin xyz = "0 0 0.0825"/>
+        <origin xyz = "0.0825 0 0"/>
         <limit effort = "1000.0" lower="-3.14" upper="3.14" velocity="0.5"/>
     </joint>
 
@@ -131,14 +131,14 @@
                 <mesh filename="package://wpr1_bringup/meshes/wpm2_joint_4.stl" scale="1 1 1"/>
             </geometry>
             <material name = "light_grey"/>
-            <origin rpy = "0 1.57 0" xyz = "-0.116 -0.057 0.122"/>
+            <origin rpy = "0 3.14 0" xyz = "0.122 -0.057 0.116"/>
         </visual>
     </link>
     <joint name = "3_upperarm_roll" type = "revolute">
         <parent link = "wpm2_joint_3"/>
         <child link = "wpm2_joint_4"/>
-        <axis xyz = "0 0 1"/>
-        <origin xyz = "0 0 0.197"/>
+        <axis xyz = "1 0 0"/>
+        <origin xyz = "0.197 0 0"/>
         <limit effort = "1000.0" lower="-3.14" upper="3.14" velocity="0.5"/>
     </joint>
 
@@ -149,14 +149,14 @@
                 <mesh filename="package://wpr1_bringup/meshes/wpm2_joint_5.stl" scale="1 1 1"/>
             </geometry>
             <material name = "grey"/>
-            <origin rpy = "0 -1.57 0" xyz = "0.107 -0.053 -0.033"/>
+            <origin rpy = "0 0 0" xyz = "-0.033 -0.053 -0.107"/>
         </visual>
     </link>
     <joint name = "4_elbow_flex" type = "revolute">
         <parent link = "wpm2_joint_4"/>
         <child link = "wpm2_joint_5"/>
-        <axis xyz = "1 0 0"/>
-        <origin xyz = "0 0 0.076"/>
+        <axis xyz = "0 0 -1"/>
+        <origin xyz = "0.076 0 0"/>
         <limit effort = "1000.0" lower="-3.14" upper="3.14" velocity="0.5"/>
     </joint>
 
@@ -167,14 +167,14 @@
                 <mesh filename="package://wpr1_bringup/meshes/wpm2_joint_4.stl" scale="1 1 1"/>
             </geometry>
             <material name = "light_grey"/>
-            <origin rpy = "0 1.57 1.57" xyz = "0.055 -0.115 0.122"/>
+            <origin rpy = "1.57 0 3.14" xyz = "0.122 -0.115 -0.055"/>
         </visual>
     </link>
     <joint name = "5_forearm_roll" type = "revolute">
         <parent link = "wpm2_joint_5"/>
         <child link = "wpm2_joint_6"/>
-        <axis xyz = "0 0 1"/>
-        <origin xyz = "0 0 0.197"/>
+        <axis xyz = "1 0 0"/>
+        <origin xyz = "0.197 0 0"/>
         <limit effort = "1000.0" lower="-3.14" upper="3.14" velocity="0.5"/>
     </joint>
 
@@ -185,14 +185,14 @@
                 <mesh filename="package://wpr1_bringup/meshes/wpm2_palm.stl" scale="1 1 1"/>
             </geometry>
             <material name = "grey"/>
-            <origin rpy = "0 -1.57 1.57" xyz = "0.0566 0.0985 -0.034"/>
+            <origin rpy = "1.57 0 0" xyz = "-0.034 0.0985 -0.0566"/>
         </visual>
     </link>
     <joint name = "6_wrist_flex" type = "revolute">
         <parent link = "wpm2_joint_6"/>
         <child link = "wpm2_palm"/>
         <axis xyz = "0 1 0"/>
-        <origin xyz = "0 0 0.076"/>
+        <origin xyz = "0.076 0 0"/>
         <limit effort = "1000.0" lower="-3.14" upper="3.14" velocity="0.5"/>
     </joint>
 
@@ -203,14 +203,14 @@
                 <mesh filename="package://wpr1_bringup/meshes/wpm2_finger.stl" scale="0.001 0.001 0.001"/>
             </geometry>
                 <material name = "light_grey"/>
-            <origin rpy = "1.57 0 -1.57" xyz = ".021 0.005 -0.005"/>
+            <origin rpy = "0 0 -1.57" xyz = "-0.005 0.005 -0.0185"/>
         </visual>
     </link>
     <joint name = "7_gripper" type = "revolute">
         <parent link = "wpm2_palm"/>
         <child link = "wpm2_left_finger"/>
-        <origin xyz = "0 0.06 0.219"/>
-        <axis xyz = "-1 0 0"/>
+        <origin xyz = "0.219 0.06 0"/>
+        <axis xyz = "0 0 1"/>
         <limit effort = "1000.0" lower="0" upper="1.0" velocity="0.5"/>
     </joint>
     <link name = "wpm2_right_finger">
@@ -219,14 +219,14 @@
                 <mesh filename="package://wpr1_bringup/meshes/wpm2_finger.stl" scale="0.001 0.001 0.001"/>
             </geometry>
                 <material name = "light_grey"/>
-            <origin rpy = "1.57 0 1.57" xyz = "-0.0175 -0.005 -0.005"/>
+            <origin rpy = "3.14 0 1.57" xyz = "-0.005 -0.005 0.020"/>
         </visual>
     </link>
     <joint name = "wpm2_palm_right_finger" type = "revolute">
         <parent link = "wpm2_palm"/>
         <child link = "wpm2_right_finger"/>
-        <origin xyz = "0 -0.06 0.219"/>
-        <axis xyz = "1 0 0"/>
+        <origin xyz = "0.219 -0.06 0"/>
+        <axis xyz = "0 0 -1"/>
         <limit effort = "1000.0" lower="0" upper="1.0" velocity="0.5"/>
         <mimic joint = "7_gripper" multiplier = "1" offset = "0"/>
     </joint>
@@ -237,7 +237,7 @@
     <joint name = "palm_tip" type = "fixed">
         <parent link = "wpm2_palm"/>
         <child link = "wpr1_tip"/>
-        <origin xyz="0 0 0.32" rpy="0 -1.57 0" />
+        <origin xyz="0.32 0 0" rpy="0 0 0" />
     </joint>
     
     <!-- ********* sensor ********-->
@@ -271,7 +271,7 @@
         <parent link="torso_link"/>
         <child link="kinect2_dock"/>
         <limit effort="1000.0" lower="0" upper="1.35" velocity="0.5"/>
-        <origin xyz="0.174 0 0" rpy="0 -1.5707963 0"/>
+        <origin xyz="0 0 -0.174" rpy="0 0 0"/>
     </joint>
 
     <link name = "kinect2_ir_optical_frame">

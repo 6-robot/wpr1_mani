@@ -37,6 +37,8 @@
 
 #include <moveit/move_group_interface/move_group_interface.h>
 #include <moveit/robot_model_loader/robot_model_loader.h>
+#include <geometry_msgs/Pose.h>
+#include <tf/transform_broadcaster.h>
 
 static double robot_joints[6];
 static bool bRobotJointValueRecv = false;
@@ -87,15 +89,37 @@ int main(int argc, char **argv)
 
     printf("\n");
     ROS_WARN("***************** INPUT ***********************");
-    //先获取正解作为反解的输入量，参数为Moveit界面里的蓝色拖动球的link（ 查看urdf文件可以知道：wpm2_palm 为机械臂蓝色拖动球的link ）
-    const Eigen::Affine3d &end_effector_state = kinematic_state->getGlobalLinkTransform("wpm2_palm");
+    /////////////////////////////////////////////////////////////////////////////
+    // 输入选择一 以机械臂当前姿态作为输入
+    //先获取正解作为反解的输入量，参数为机械臂手爪末端的link（ 查看TF Tree可以知道：wpr1_tip为机械臂手爪末端的link）
+    const Eigen::Affine3d &end_effector_state = kinematic_state->getGlobalLinkTransform("wpr1_tip");
     ROS_INFO_STREAM("Translation: \n" << end_effector_state.translation());
-    ROS_INFO_STREAM("Rotation: \n" << end_effector_state.rotation());
+    ROS_INFO_STREAM("Rotation: \n" << end_effector_state.rotation() << "\n");
+    //用指定的关节名称及其姿态作为反解输入，求反解
+    bool found_ik = kinematic_state->setFromIK(joint_model_group, end_effector_state,"wpr1_tip", 10, 0.1);
+    /////////////////////////////////////////////////////////////////////////////
+    // 输入选择二 通过赋值指定一个目标姿态作为输入
+    // geometry_msgs::Pose end_effector_pose;
+    // end_effector_pose.position.x = 0.76;
+    // end_effector_pose.position.y = 0;
+    // end_effector_pose.position.z = 0.80;
+    // tf::Quaternion quat;
+    // 目标姿态朝向的欧拉角表示,函数三个参数分别为滚转,俯仰和偏转角,单位为弧度
+    // quat.setRPY(0.0, 0.0, 0.0);
+    // 将欧拉角旋转量转换成四元数表达
+    // tf::StampedTransform transform;
+    // transform.setRotation(quat);
+    // end_effector_pose.orientation.x = transform.getRotation().getX();
+    // end_effector_pose.orientation.y = transform.getRotation().getY();
+    // end_effector_pose.orientation.z = transform.getRotation().getZ();
+    // end_effector_pose.orientation.w = transform.getRotation().getW();
+    // ROS_INFO_STREAM("Position: \n" << end_effector_pose.position);
+    // ROS_INFO_STREAM("Orientation: \n" << end_effector_pose.orientation);
+    //用指定的关节名称及其姿态作为反解输入，求反解
+    // bool found_ik = kinematic_state->setFromIK(joint_model_group, end_effector_pose,"wpr1_tip", 10, 0.1);
+    //////////////////////////////////////////////////////////////////////////////
 
-    printf("\n");
     ROS_WARN("***************** OUTPUT **********************");
-    //用当前机器人手臂末端(Moveit界面里的蓝色拖动球)的坐标作为反解输入，求反解
-    bool found_ik = kinematic_state->setFromIK(joint_model_group, end_effector_state, 10, 0.1);
     if (found_ik)
     {
         //反解有解，定义一个数组 joint_values 用来获取反解的机械臂关节值
@@ -111,7 +135,7 @@ int main(int argc, char **argv)
     else
     {
         //反解无解
-        ROS_INFO("Did not find IK solution");
+        ROS_WARN("[ERROR] Did not find IK solution");
     }
 
     // 获取反解得到的雅戈比逆矩阵

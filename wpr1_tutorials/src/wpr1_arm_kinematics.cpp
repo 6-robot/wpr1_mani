@@ -71,13 +71,13 @@ int main(int argc, char **argv)
 
     //设置关节角度值（后面的正解会按照这组关节值计算位姿, 下面给出四种种赋值方式进行测试）
     ////////////////////////////////////////////////////////////////////////////////////////////////////
-    // 测试一：设置关节为默认值
+    // 输入选择一：设置关节为默认值
     //kinematic_state->setToDefaultValues();    
     ////////////////////////////////////////////////////////////////////////////////////////////////////
-    //测试二：设置关节为随机值
+    // 输入选择二：设置关节为随机值
     //kinematic_state->setToRandomPositions(joint_model_group);   
     ////////////////////////////////////////////////////////////////////////////////////////////////////
-    //测试三 ： 给每个关节设置具体的值（单位为弧度，也就是赋值3.1415926为180度）
+    // 输入选择三 ： 给每个关节设置具体的值（单位为弧度，也就是赋值3.1415926为180度）
     // std::vector<double> joint_values;
     // joint_values.push_back(0); //"1_shoulder_roll";
     // joint_values.push_back(0); //"2_shoulder_flex";
@@ -87,7 +87,7 @@ int main(int argc, char **argv)
     // joint_values.push_back(0); //"6_wrist_flex";
     // kinematic_state->setJointGroupPositions(joint_model_group, joint_values);
     ////////////////////////////////////////////////////////////////////////////////////////////////////
-    //测试四 ： 获取机器人实体的当前角度值
+    // 输入选择四 ： 获取机器人实体的当前角度值
     while(bRobotJointValueRecv == false)
     {
         ros::spinOnce();

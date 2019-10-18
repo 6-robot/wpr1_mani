@@ -3,8 +3,7 @@ Panels:
     Help Height: 84
     Name: Displays
     Property Tree Widget:
-      Expanded:
-        - /TF1/Frames1
+      Expanded: ~
       Splitter Ratio: 0.742560029
     Tree Height: 421
   - Class: rviz/Help

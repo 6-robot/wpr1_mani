@@ -43,10 +43,15 @@ int main(int argc, char** argv)
   ros::init(argc, argv, "wpr1_tf_demo");
   tf::TransformListener listener;
 
+  std::string frame_1 = "base_link";
+  std::string frame_2 = "wpm2_joint_1";
+  ROS_WARN("From  \"%s\"  to  \"%s\"" , frame_1.c_str() , frame_2.c_str());
+
   tf::StampedTransform transform;
   try
   {
-    listener.lookupTransform("/map", "/odom", ros::Time(0), transform);
+    listener.waitForTransform(frame_1, frame_2, ros::Time(0), ros::Duration(3.0));
+    listener.lookupTransform(frame_1, frame_2, ros::Time(0), transform);
   }
   catch (tf::TransformException &ex) 
   {
@@ -55,6 +60,6 @@ int main(int argc, char** argv)
     return 0;
   }
 
-  ROS_WARN("position = (%.2f , %.2f , %.2f)",transform.getOrigin().x(),transform.getOrigin().y(),transform.getOrigin().z());
+  ROS_WARN("position = (%.3f , %.3f , %.3f)",transform.getOrigin().x(),transform.getOrigin().y(),transform.getOrigin().z());
   ROS_WARN("rotation = (%.2f , %.2f , %.2f , %.2f)",transform.getRotation().w(),transform.getRotation().x(),transform.getRotation().y(),transform.getRotation().z());
 }

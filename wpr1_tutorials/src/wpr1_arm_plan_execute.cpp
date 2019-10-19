@@ -61,7 +61,7 @@ int main(int argc, char **argv)
     // 机械臂末端朝向(这里设置为竖直向上,以免运动时误碰周围物体)
     tf::Quaternion quat;
     // 手爪初始姿态是向前,函数三个参数分别为滚转,俯仰和偏转角,单位为弧度
-    quat.setRPY(0.0, 1.57, 0.0);
+    quat.setRPY(0.0, 0.0, 0.0);
     // 将欧拉角旋转量转换成四元数表达
     transform.setRotation(quat);
     target_pose.orientation.x= transform.getRotation().getX();
